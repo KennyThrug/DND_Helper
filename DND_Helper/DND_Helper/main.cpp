@@ -1,21 +1,28 @@
 #include "DungeonMaster.h"
 #include <KGLGE/Window.h>
-#include "Tile.h"
+#include <KGLGE/Sprite.h>
+#include "Square.h"
 
 int main() {
 	KGLGE::initializeGLFW();
-	KGLGE::Window* win = new KGLGE::Window(500,500,"DungeonMaster");
+	KGLGE::Window* win = new KGLGE::Window(1500,1500,"DungeonMaster");
 	win->display();
 	DungeonMaster master(win);
 
-	std::string s = "res/sprites/GrassLand/";
-	KGLGE::TextureAtlas grass(s,KGLGE_BACKGROUND);
+	Square r(-1, -1, 0.5f, 0.5f, 1, 0, 0, 1);
+	master.addGameObject(&r,1);
 
-	Tile tile = Tile(&grass, 0, 0, 0.5f, 0.5f, "Grass.png");
-	KGLGE::Sprite water = KGLGE::Sprite(&grass, -1, -1, 0.25f, 0.25f, "Water.png");
+	Square b(-1, 0, 0.5f, 0.5f, 0, 1, 0, 1);
+	master.addGameObject(&b, 1);
 
-	master.addGameObject(&tile,0);
-	master.addGameObject(&water, 0);
+	Square g(0, -1, 0.5f, 0.5f, 0, 0, 1, 1);
+	master.addGameObject(&g, 1);
+
+	Square y(0, 0, 0.5f, 0.5f, 1, 1, 0, 1);
+	master.addGameObject(&y, 1);
+
+
+
 	master.startLoop();
 	
 	delete win;
