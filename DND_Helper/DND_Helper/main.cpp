@@ -5,7 +5,7 @@
 
 int main() {
 	KGLGE::initializeGLFW();
-	KGLGE::Window* win = new KGLGE::Window(1500,1500,"DungeonMaster");
+	KGLGE::Window* win = new KGLGE::Window("DungeonMaster");
 	win->display();
 	DungeonMaster master(win);
 

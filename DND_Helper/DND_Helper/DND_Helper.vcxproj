@@ -156,13 +156,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DungeonMaster.cpp" />
-    <ClCompile Include="Img.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Square.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungeonMaster.h" />
-    <ClInclude Include="Img.h" />
+    <ClInclude Include="HidableImg.h" />
     <ClInclude Include="Square.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

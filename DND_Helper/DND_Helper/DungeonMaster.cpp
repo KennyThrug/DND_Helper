@@ -6,7 +6,7 @@ DungeonMaster::DungeonMaster(KGLGE::Window* win) : GameLoop(win)
 	//0 is for fullscreen stuff
 }
 
-void DungeonMaster::addImg(std::string name, unsigned int num) {
+void DungeonMaster::addImg(std::string fileName, unsigned int num) {
 
 }
 
@@ -36,4 +36,25 @@ void DungeonMaster::update()
 		std::cin >> x;
 		addImg(x, 4);
 	}
+	else if (this->getWin()->getKey(GLFW_KEY_Q)) {
+		std::string x;
+		std::cout << "Please Insert the name of the file:\n";
+		std::cin >> x;
+		displayFullscreenIMG(x);
+	}
+	else if (this->getWin()->getKey(GLFW_KEY_W)) {
+		if (((HidableImg*)gameObjects[2][0])->isHidden()) {
+			((HidableImg*)gameObjects[2][0])->showImg();
+		}
+		else {
+			((HidableImg*)gameObjects[2][0])->hideImg();
+		}
+	}
+}
+
+void DungeonMaster::displayFullscreenIMG(std::string fileName)
+{
+	HidableImg* img = new HidableImg(-1, -1, 2, 2, fileName, 0);
+	gameObjects[2][0] = img;
+	m_numGameObjects[2] = 1;
 }
