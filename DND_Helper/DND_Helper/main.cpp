@@ -9,18 +9,21 @@ int main() {
 	win->display();
 	DungeonMaster master(win);
 
-	Square r(-1, -1, 0.5f, 0.5f, 1, 0, 0, 1);
-	master.addGameObject(&r,1);
+	Square r(-1, -1, 1, 1, 1, 0, 0, 1);
+	master.addGameObject(&r,0);
 
-	Square b(-1, 0, 0.5f, 0.5f, 0, 1, 0, 1);
-	master.addGameObject(&b, 1);
+	Square b(-1, 0, 1, 1, 0, 1, 0, 1);
+	master.addGameObject(&b, 0);
 
-	Square g(0, -1, 0.5f, 0.5f, 0, 0, 1, 1);
-	master.addGameObject(&g, 1);
+	Square g(0, -1, 1, 1, 0, 0, 1, 1);
+	master.addGameObject(&g, 0);
 
-	Square y(0, 0, 0.5f, 0.5f, 1, 1, 0, 1);
-	master.addGameObject(&y, 1);
-
+	Square y(0, 0, 1, 1, 1, 1, 0, 1);
+	master.addGameObject(&y, 0);
+	for (int i = 0; i < 4; i++) {
+		Square *t = new Square(0, 0, 0, 0, 0, 0, 0, 0);
+		master.addGameObject(t,1);
+	}
 
 
 	master.startLoop();

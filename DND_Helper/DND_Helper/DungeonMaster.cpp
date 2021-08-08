@@ -1,40 +1,32 @@
 #include "DungeonMaster.h"
-
 DungeonMaster::DungeonMaster(KGLGE::Window* win) : GameLoop(win)
 {
 	///1-4 are for enemies
 	//0 is for fullscreen stuff
 }
 
-void DungeonMaster::addImg(std::string fileName, unsigned int num) {
-
+void DungeonMaster::addImg(unsigned int num,float x,float y) {
+	delete gameObjects[1][num];
+	std::string p;
+	std::cout << "Please Insert the name of the file:\n";
+	std::cin >> p;
+	HidableImg* img = new HidableImg(x, y, 0.8f, 0.8f, p, num);
+	gameObjects[1][num] = img;
 }
-
+bool xa = true;
 void DungeonMaster::update()
 {
 	if (this->getWin()->getKey(GLFW_KEY_1)) {
-		std::string x;
-		std::cout << "Please Insert the name of the file:\n";
-		std::cin >> x;
-		addImg(x, 1);
+		addImg(1,-0.9f,-0.9f);
 	}
 	else if(this->getWin()->getKey(GLFW_KEY_2)){
-		std::string x;
-		std::cout << "Please Insert the name of the file:\n";
-		std::cin >> x;
-		addImg(x, 2);
+		addImg(2,0.1f,-0.9f);
 	}
 	else if (this->getWin()->getKey(GLFW_KEY_3)) {
-		std::string x;
-		std::cout << "Please Insert the name of the file:\n";
-		std::cin >> x;
-		addImg(x, 3);
+		addImg(3,0.1f,0.1f);
 	}
 	else if (this->getWin()->getKey(GLFW_KEY_4)) {
-		std::string x;
-		std::cout << "Please Insert the name of the file:\n";
-		std::cin >> x;
-		addImg(x, 4);
+		addImg(4,-0.9f,0.1f);
 	}
 	else if (this->getWin()->getKey(GLFW_KEY_Q)) {
 		std::string x;
@@ -50,6 +42,10 @@ void DungeonMaster::update()
 			((HidableImg*)gameObjects[2][0])->hideImg();
 		}
 	}
+	else if (this->getWin()->getKey(GLFW_KEY_SPACE) && xa) {
+		saveImg();
+		xa = false;
+	}
 }
 
 void DungeonMaster::displayFullscreenIMG(std::string fileName)
@@ -57,4 +53,22 @@ void DungeonMaster::displayFullscreenIMG(std::string fileName)
 	HidableImg* img = new HidableImg(-1, -1, 2, 2, fileName, 0);
 	gameObjects[2][0] = img;
 	m_numGameObjects[2] = 1;
+}
+
+void DungeonMaster::saveImg() {
+	int width = 0;
+	int height = 0;
+	getWin()->getSize(&width, &height);
+	BYTE* pixels = new BYTE[4 * width * height];
+	
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	
+	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 4 * width, 32, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, false);
+	FreeImage_Save(FIF_PNG, image, "test.png", 0);
+
+	FreeImage_Unload(image);
+
+	charArrayImg* go = new charArrayImg(pixels,4,width,height,0,0,1,1,7);
+	addGameObject(go, 2);
+	//delete[] pixels;
 }
