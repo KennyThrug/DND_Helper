@@ -59,14 +59,10 @@ void DungeonMaster::saveImg() {
 	int width = 0;
 	int height = 0;
 	getWin()->getSize(&width, &height);
-	BYTE* pixels = new BYTE[4 * width * height];
+	unsigned char* pixels = new unsigned char[4 * width * height];
 	
 	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 	
-	FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 4 * width, 32, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, false);
-	FreeImage_Save(FIF_PNG, image, "test.png", 0);
-
-	FreeImage_Unload(image);
 
 	charArrayImg* go = new charArrayImg(pixels,4,width,height,0,0,1,1,7);
 	addGameObject(go, 2);

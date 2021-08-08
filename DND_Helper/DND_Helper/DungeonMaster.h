@@ -1,7 +1,6 @@
 #pragma once
 #include <KGLGE/GameLoop.h>
 #include "HidableImg.h"
-#include <FreeImage.h>
 #include "charArrayImg.h"
 class DungeonMaster : public KGLGE::GameLoop {
 public:
